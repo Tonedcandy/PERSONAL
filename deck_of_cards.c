@@ -3,6 +3,7 @@
 //
 #include<stdio.h>
 #include <string.h>
+#include <wchar.h>
 #include<stdlib.h>
 struct card_attr
 {
@@ -34,10 +35,11 @@ void swap(struct card_attr* a, struct card_attr* b)
    of pivot */
 int partition (struct card_attr* arr, int low, int high)
 {
-    int pivot = arr[high].rank;    // pivot
+    int j;
+	int pivot = arr[high].rank;    // pivot
     int i = (low - 1);  // Index of smaller element
 
-    for (int j = low; j <= high- 1; j++)
+    for ( j = low; j <= high- 1; j++)
     {
         // If current element is smaller than or
         // equal to pivot
@@ -120,10 +122,11 @@ int process(char *s)
 int main(){
     int i=0,len,deck[4],k=0,j=0,c,d,h,s;
 	deck[0]=deck[1]=deck[2]=deck[3]=0;
-    char input[4],delim='1',suit_check,suits[]="cdhs";
+    char input[4],delim='1',suit_check,suits[]="cdhs",suit_sym;
 //    int  a[]={1,45,65,765,10};
-
-    printf("Enter the card details:\n");
+	printf("\t\t\t\tTONEDCANDY'S PLAYING CARDS SORTING PROGRAM\n");
+	printf("\t\t\t\t------------------------------------------\n");
+    printf("INPUT FORMAT:\n<Suit Letter><Rank Number/Letter>\n(E.g. 'hk' for King of Hearts, 'sa' for Ace of Spades, 'd10' for 10 of Diamonds)\nPLEASE ENTER THE LIST OF CARDS:\n");
     while(delim!='\n')
 	{
 
@@ -221,15 +224,45 @@ else
     quickSort(card,c,c+d-1);
  	quickSort(card,c+d,c+d+h-1);
     quickSort(card,c+d+h,len-1);
+    k=0;
+    printf("\t\t\t\t-------------------SORTED CARDS-------------------\n");
+    //suit_sym=03;
+    
     for(i=0;i<len;i++)
     {
-         printf("%s ",card[i].suit);
+         if(i==0&&c!=0)
+             printf("\t\t\t\t|CLUBS: ");
+
+		 
+		 else if(i==c&&d!=0)
+         	{
+         		if(c!=0)
+         		printf("\n");
+				 printf("\t\t\t\t|DIAMONDS: ");
+         		
+			 }
+			else if(i==c+d&&h!=0)
+			{	if(d!=0)
+         		printf("\n");
+				         		printf("\t\t\t\t|HEARTS: ");
+
+			}
+			else if(i==c+d+h&&s!=0)
+			{		
+				if(h!=0)
+         		printf("\n");
+				         		printf("\t\t\t\t|SPADES: ");
+
+			}
+		
+		 printf("%s ",card[i].suit);
 
 
 
     }
+	printf("\n\t\t\t\t--------------------------------------------------");
+
 
 
     return 0;
 }
-
